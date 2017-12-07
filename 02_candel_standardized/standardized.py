@@ -10,7 +10,8 @@ class StandardHandle(object):
         self.is_merged = False
         # 原始列表初始化标准列表
         self.standardized_list = original_list
-
+        self.standardized_list_ex=[]
+        self.date_tickers = []
     # 方向
     def __set_direction(self, item_pre, item_curr):
         high_pre = item_pre['high']
@@ -119,4 +120,8 @@ class StandardHandle(object):
                     self.standardized_list.pop(i - 1)
                     i -= 1
             i += 1
-        return self.standardized_list
+        list_index = 0
+        for row in self.standardized_list:
+            self.date_tickers.append(str(row['index']))
+            self.standardized_list_ex.append((list_index, row['open'], row['high'], row['low'], row['close']))
+            list_index += 1
