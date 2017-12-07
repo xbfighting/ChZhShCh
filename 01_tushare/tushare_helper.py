@@ -1,8 +1,5 @@
 import tushare as ts
 from datetime import datetime, date, time
-import numpy as np
-import pandas as pd
-
 
 # 单例
 class Singleton(object):
@@ -10,7 +7,7 @@ class Singleton(object):
 
     def __new__(cls, *args, **kw):
         if not cls._instance:
-            cls._instance = super(Singleton, cls).__new__(cls, *args, **kw)
+            cls._instance = super(Singleton, cls).__new__(cls)
         return cls._instance
 
 
@@ -32,11 +29,13 @@ class TushareHelper(object):
         self.data_frame = {}
         self.data_original = []
         self.data_original_ex = []
+        self.date_tickers = []
 
-    def bar(self):
+    def __bar(self):
         self.data_frame = ts.bar(code=self.code, conn=TushareConn.conn, start_date=self.start, end_date=self.end,
                                  freq=self.freq, asset=self.asset)
-    def standardized(self):
+    def data_transfer(self):
+        self.__bar()
         list_index = 0
         # data_frame 按照 index 倒叙排序
         for index, row in self.data_frame.sort_index().iterrows():
@@ -45,14 +44,5 @@ class TushareHelper(object):
             row["is_up"] = row["open"] <= row["close"]
             self.data_original_ex.append((list_index, row['open'], row['high'], row['low'], row['close']))
             self.data_original.append(row)
+            self.date_tickers.append(str(row['index']))
             list_index += 1
-
-# test
-test = TushareHelper('000001', '2017-12-04','2017-12-05','30min')
-test.bar()
-test.standardized()
-
-for item in test.data_original:
-    print(item)
-for item in test.data_original_ex:
-    print(item)
