@@ -1,8 +1,5 @@
 import tushare as ts
 from datetime import datetime, date, time
-import numpy as np
-import pandas as pd
-
 
 # 单例
 class Singleton(object):
