@@ -119,5 +119,4 @@ class StandardHandle(object):
                     self.standardized_list.pop(i - 1)
                     i -= 1
             i += 1
-            print(self.candle_direction)
         return self.standardized_list
