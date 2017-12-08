@@ -10,8 +10,10 @@ class StandardHandle(object):
         self.is_merged = False
         # 原始列表初始化标准列表
         self.standardized_list = original_list
-        self.standardized_list_ex=[]
+        self.standardized_list_ex = []
+        self.top_bottom_data = []
         self.date_tickers = []
+
     # 方向
     def __set_direction(self, item_pre, item_curr):
         high_pre = item_pre['high']
@@ -126,3 +128,11 @@ class StandardHandle(object):
             self.date_tickers.append(str(row['index']))
             self.standardized_list_ex.append((list_index, row['open'], row['high'], row['low'], row['close']))
             list_index += 1
+
+    # 获取顶和底
+    def get_top_bottom(self):
+        for i in self.standardized_list:
+            print(i)
+            pass
+
+
