@@ -18,7 +18,7 @@ class PlotShow(object):
         return self.date_tickers[int(x)]
 
     # 画图
-    def candle_show(self, stock_data):
+    def candle_show(self, stock_data, top_bottom_data=[]):
         # 创建子图
         fig, ax = plt.subplots(figsize=(192.0 / 72, 108.0 / 72))
         ax.xaxis.set_major_locator(ticker.MultipleLocator(self.xaxis_cycle))

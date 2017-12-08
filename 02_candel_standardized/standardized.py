@@ -120,6 +120,7 @@ class StandardHandle(object):
                     self.standardized_list.pop(i - 1)
                     i -= 1
             i += 1
+
         list_index = 0
         for row in self.standardized_list:
             self.date_tickers.append(str(row['index']))
