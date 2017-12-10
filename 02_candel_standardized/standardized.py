@@ -132,6 +132,7 @@ class StandardHandle(object):
     # 获取顶和底
     def get_top_bottom(self):
         for i in self.standardized_list:
+            self.top_bottom_data.append(i)
             print(i)
             pass
 
