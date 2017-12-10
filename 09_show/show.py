@@ -43,9 +43,9 @@ class PlotShow(object):
         # TODO 顶底 Series
         ser = Series(1000 * np.abs(np.random.randn(60)))
         print(ser)
-        ser[:8].plot(color='red')
-        ser[7:16].plot(color='green')
-        ser[15:24].plot(color='blue')
+        # ser[:8].plot(color='red')
+        # ser[7:16].plot(color='green')
+        # ser[15:24].plot(color='blue')
 
         # TODO 图例等
         if len(top_bottom_data) > 0:
@@ -58,4 +58,5 @@ class PlotShow(object):
             plt.legend()  # 展示图例
 
         ax.grid(True)
+        # plt.savefig('E:\PythonChZhShCh\\' + code + k_type + start_date + end_date + '.png')
         plt.show()

@@ -7,7 +7,7 @@ import standardized as standard
 sys.path.append(r"09_show")
 import show
 
-original = th.TushareHelper('000001', '2017-12-01','2017-12-04','60min')
+original = th.TushareHelper('000001', '2017-12-06','2017-12-08','60min')
 original.data_transfer()
 print(len(original.data_original))
 
