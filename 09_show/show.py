@@ -35,7 +35,7 @@ class PlotShow(object):
         plt.ylabel(self.ylabel)
 
         # 创建子图
-        fig, ax = plt.subplots(figsize=(192.0 / 72, 108.0 / 72))
+        fig, ax = plt.subplots(figsize=(1920 / 72, 1080 / 72))
         ax.xaxis.set_major_locator(ticker.MultipleLocator(self.xaxis_cycle))
         ax.xaxis.set_major_formatter(ticker.FuncFormatter(self.__format_date))
         mpf.candlestick_ohlc(ax, stock_data, width=self.width, colordown=self.colordown, colorup=self.colorup, alpha=1)
