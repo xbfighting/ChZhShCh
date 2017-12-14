@@ -30,9 +30,9 @@ class PlotShow(object):
         plt.rcParams['font.sans-serif'] = ['SimHei']
         plt.rcParams['axes.unicode_minus'] = False
 
-        plt.title(self.title)
-        plt.xlabel(self.xlabel)
-        plt.ylabel(self.ylabel)
+        # plt.title(self.title)
+        # plt.xlabel(self.xlabel)
+        # plt.ylabel(self.ylabel)
 
         # 创建子图
         fig, ax = plt.subplots(figsize=(1920 / 72, 1080 / 72))
@@ -40,14 +40,7 @@ class PlotShow(object):
         ax.xaxis.set_major_formatter(ticker.FuncFormatter(self.__format_date))
         mpf.candlestick_ohlc(ax, stock_data, width=self.width, colordown=self.colordown, colorup=self.colorup, alpha=1)
 
-        # TODO 顶底 Series
-        ser = Series(1000 * np.abs(np.random.randn(60)))
-        print(ser)
-        # ser[:8].plot(color='red')
-        # ser[7:16].plot(color='green')
-        # ser[15:24].plot(color='blue')
-
-        # TODO 图例等
+        # TODO 顶底、图例等
         if len(top_bottom_data) > 0:
             x = []
             y = []
