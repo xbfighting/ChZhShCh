@@ -188,7 +188,8 @@ class StandardHandle(object):
         for item in self.top_bottom_list:
             self.top_bottom_list_ex.append([item["int_index"], item["typing_value"]])
 
-
+        # 顶底不仅要考虑是否有3k，还需考虑分型区间是否包含 ！~！！！！！！
+        # 连续顶顶或底底的情况要考虑极值的相比
         s_length = len(self.top_bottom_list)
         for i in range(s_length):
             if i > 0 and s_length - i > 1:
