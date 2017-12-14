@@ -157,11 +157,35 @@ class StandardHandle(object):
             return typing
         else:
             return 0
+
+    # 思路
+    # 1、先获取所有的顶和底，标准转向
+    # 2、连续顶底的处理
+    # 3、输出
+
     # 获取顶和底
     def get_top_bottom(self):
-        for i in self.standardized_list:
-            self.top_bottom_data.append(i)
-            print(i)
-            pass
+        s_length = len(self.standardized_list)
+        typing = 0
+
+        i = 0
+        while i < s_length:
+            if i > 0 and s_length - i > 1:
+                pre = self.standardized_list[i - 1]
+                curr = self.standardized_list[i]
+                after = self.standardized_list[i + 1]
+                typing = self.__get_typing(pre, curr, after)
+                if typing != 0:
+                    curr["int_index"] = i
+                    curr["typing"] = typing
+                    if typing == 1:
+                        curr["typing_value"] = curr["high"]
+                    else:
+                        curr["typing_value"] = curr["low"]
+                    self.top_bottom_list.append(curr)
+            i += 1
+
+        for item in self.top_bottom_list:
+            self.top_bottom_list_ex.append([item["int_index"], item["typing_value"]])
 
 
