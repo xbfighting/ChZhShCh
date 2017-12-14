@@ -132,6 +132,31 @@ class StandardHandle(object):
             self.standardized_list_ex.append((list_index, row['open'], row['high'], row['low'], row['close']))
             list_index += 1
 
+    # 获取分型类型
+    def __get_typing(self, pre, curr, after):
+        high_pre = pre['high']
+        high_curr = curr['high']
+        high_after = after['high']
+
+        typing = 0 # 0-无顶底，1-顶分型，-1-底分型
+        direction = 0 # 方向类型
+
+        if high_curr > high_pre:
+            direction = 1
+            typing = 1
+        else:
+            direction = -1
+            typing = -1
+
+        if high_after < high_curr:
+            direction = direction - 1
+        else:
+            direction = direction + 1
+
+        if direction == 0:
+            return typing
+        else:
+            return 0
     # 获取顶和底
     def get_top_bottom(self):
         for i in self.standardized_list:
