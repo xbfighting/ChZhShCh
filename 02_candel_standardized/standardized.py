@@ -11,7 +11,10 @@ class StandardHandle(object):
         # 原始列表初始化标准列表
         self.standardized_list = original_list
         self.standardized_list_ex = []
-        self.top_bottom_data = []
+        self.top_bottom_list = [] #普通顶底
+        self.top_bottom_list_ex = [] #普通顶底ex
+        self.standardized_top_bottom_list = [] #标准顶底
+        self.standardized_top_bottom_list_ex = [] #标准顶底ex
         self.date_tickers = []
 
     # 方向
