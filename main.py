@@ -1,4 +1,7 @@
 import sys
+
+import datetime
+
 sys.path.append(r"00_common")
 sys.path.append(r"01_tushare")
 import tushare_helper as th
@@ -7,7 +10,7 @@ import standardized as standard
 sys.path.append(r"09_show")
 import show
 
-original = th.TushareHelper('000001', '2017-12-06','2017-12-08','60min')
+original = th.TushareHelper('000001', datetime.date.today() + datetime.timedelta(days=-1),datetime.date.today(),'1min')
 original.data_transfer()
 print(len(original.data_original))
 
