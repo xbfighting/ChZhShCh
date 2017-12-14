@@ -189,3 +189,24 @@ class StandardHandle(object):
             self.top_bottom_list_ex.append([item["int_index"], item["typing_value"]])
 
 
+        s_length = len(self.top_bottom_list)
+        for i in range(s_length):
+            if i > 0 and s_length - i > 1:
+                pre =  self.top_bottom_list[i-1]
+                curr = self.top_bottom_list[i]
+                after = self.top_bottom_list[i + 1]
+
+                if curr["int_index"] - pre["int_index"] >= 4:
+                    self.standardized_top_bottom_list.append(pre)
+                else:
+                    if pre["typing"] == 1:
+                        if after["typing_value"] >= pre["typing_value"]:
+                            self.standardized_top_bottom_list.append(after)
+                    else:
+                        if after["typing_value"] <= pre["typing_value"]:
+                            self.standardized_top_bottom_list.append(after)
+
+        for item in self.standardized_top_bottom_list:
+            self.standardized_top_bottom_list_ex.append([item["int_index"], item["typing_value"]])
+
+
