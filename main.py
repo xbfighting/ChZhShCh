@@ -26,6 +26,7 @@ print(len(sta.top_bottom_list))
 
 date_tickers = sta.date_tickers
 my_plot = show.PlotShow(date_tickers, '000001')
+my_plot.candle_show(sta.standardized_list_ex, [])
 my_plot.candle_show(sta.standardized_list_ex, sta.top_bottom_list_ex)
 my_plot.candle_show(sta.standardized_list_ex, sta.standardized_top_bottom_list_ex)
 
