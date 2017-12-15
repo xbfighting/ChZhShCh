@@ -13,6 +13,7 @@ class StandardHandle(object):
         self.standardized_list_ex = []
         self.top_bottom_list = [] #普通顶底
         self.top_bottom_list_ex = [] #普通顶底ex
+        self.standardized_top_bottom_list_temp = []  # 标准顶底 temp
         self.standardized_top_bottom_list = [] #标准顶底
         self.standardized_top_bottom_list_ex = [] #标准顶底ex
         self.date_tickers = []
@@ -183,6 +184,7 @@ class StandardHandle(object):
                     else:
                         curr["typing_value"] = curr["low"]
                     self.top_bottom_list.append(curr)
+                    self.standardized_top_bottom_list.append(curr)
             i += 1
 
         for item in self.top_bottom_list:
@@ -192,24 +194,29 @@ class StandardHandle(object):
         # 顶底不仅要考虑是否有3k，还需考虑分型区间是否包含 ！~！！！！！！
         # 连续顶顶或底底的情况要考虑极值的相比
         s_length = len(self.top_bottom_list)
+
         for i in range(s_length):
             if i > 0 and s_length - i > 1:
                 pre =  self.top_bottom_list[i-1]
                 curr = self.top_bottom_list[i]
                 after = self.top_bottom_list[i + 1]
 
-                if curr["int_index"] - pre["int_index"] >= 4:
-                    self.standardized_top_bottom_list.append(pre)
-                else:
-                    if pre["typing"] == 1:
-                        if after["typing_value"] >= pre["typing_value"]:
-                            self.standardized_top_bottom_list.append(after)
+                if pre["typing"] == -1: # 底
+                    if after["typing_value"] >= pre["typing_value"]:
+                        self.standardized_top_bottom_list_temp.append(i+1)
                     else:
-                        if after["typing_value"] <= pre["typing_value"]:
-                            self.standardized_top_bottom_list.append(after)
-                    i = i +2
+                        self.standardized_top_bottom_list_temp.append(i-1)
+                else: # 顶
+                    if after["typing_value"] >= pre["typing_value"]:
+                        self.standardized_top_bottom_list_temp.append(i-1)
+                    else:
+                        self.standardized_top_bottom_list_temp.append(i+1)
 
-        for item in self.standardized_top_bottom_list:
+        # 写两个 for 循环搞一下得了
+        for item in self.standardized_top_bottom_list_temp:
+            self.standardized_top_bottom_list.pop(item)
+
+        for item in self.standardized_top_bottom_list :
             self.standardized_top_bottom_list_ex.append([item["int_index"], item["typing_value"]])
             print(item["int_index"], item["typing_value"], item["typing"])
 
