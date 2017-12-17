@@ -242,10 +242,12 @@ class StandardHandle(object):
                                     if after["typing_value"] < temp_rang["_bottom"]["typing_value"]:
                                         self.standardized_top_bottom_list_temp.pop(len(self.standardized_top_bottom_list_temp) - 1)
                                         self.standardized_top_bottom_list_temp.append(after)
-                                    # 重新确认不成笔区间
-                                    temp_rang["_top"] = curr
-                                    temp_rang["_bottom"] = after
-                                    temp_rang["_flag"] = 1
+                                        temp_rang = {"_top": None, "_bottom": None, "_flag": 0}
+                                    else:
+                                        # 新区间 确认顶
+                                        temp_rang["_top"] = curr
+                                        temp_rang["_bottom"] = after
+                                        temp_rang["_flag"] = 1
 
                         # 当前为底
                         else:
@@ -275,10 +277,14 @@ class StandardHandle(object):
                                     if after["typing_value"] > temp_rang["_top"]["typing_value"]:
                                         self.standardized_top_bottom_list_temp.pop(len(self.standardized_top_bottom_list_temp) - 1)
                                         self.standardized_top_bottom_list_temp.append(after)
-                                    # 重新确认不成笔区间
-                                    temp_rang["_top"] = after
-                                    temp_rang["_bottom"] = curr
-                                    temp_rang["_flag"] = -1
+
+                                        # reset range
+                                        temp_rang = {"_top": None, "_bottom": None, "_flag": 0}
+                                    else:
+                                        # 新区间 确认底
+                                        temp_rang["_top"] = after
+                                        temp_rang["_bottom"] = curr
+                                        temp_rang["_flag"] = -1
 
         print("standardized_top_bottom_list_temp")
         print(len(self.standardized_top_bottom_list_temp))
