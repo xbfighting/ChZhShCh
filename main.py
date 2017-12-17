@@ -12,13 +12,10 @@ import show
 
 original = th.TushareHelper('000001', datetime.date.today()+ datetime.timedelta(days=-1),datetime.date.today() + datetime.timedelta(days=+1),'1min')
 original.data_transfer()
-print(len(original.data_original))
 
 sta = standard.StandardHandle(original.data_original)
 sta.deal_candle()
-print(len(sta.standardized_list_ex))
 sta.get_top_bottom()
-print(len(sta.top_bottom_list))
 
 # date_tickers = original.date_tickers
 # my_plot = show.PlotShow(date_tickers, '000001上海')
