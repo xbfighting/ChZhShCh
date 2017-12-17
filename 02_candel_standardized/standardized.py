@@ -187,6 +187,9 @@ class StandardHandle(object):
                     self.standardized_top_bottom_list.append(curr)
             i += 1
 
+        print("top_bottom_list")
+        print(len(self.top_bottom_list))
+
         for item in self.top_bottom_list:
             self.top_bottom_list_ex.append([item["int_index"], item["typing_value"]])
             print(item["int_index"], item["typing_value"], item["typing"])
