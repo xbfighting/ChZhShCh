@@ -195,29 +195,60 @@ class StandardHandle(object):
         # 连续顶顶或底底的情况要考虑极值的相比
         s_length = len(self.top_bottom_list)
 
-        for i in range(s_length):
-            if i > 0 and s_length - i > 1:
-                pre =  self.top_bottom_list[i-1]
-                curr = self.top_bottom_list[i]
-                after = self.top_bottom_list[i + 1]
+        # 不足5k的顶底去除
+        for i in range(0, s_length, 1):
+            if s_length - i > 1:
+                pre = self.top_bottom_list[i]
+                curr = self.top_bottom_list[i + 1]
+                if curr["int_index"] - pre["int_index"] < 4:
+                    self.standardized_top_bottom_list_temp.append(curr)
 
-                if pre["typing"] == -1: # 底
-                    if after["typing_value"] >= pre["typing_value"]:
-                        self.standardized_top_bottom_list_temp.append(i+1)
-                    else:
-                        self.standardized_top_bottom_list_temp.append(i-1)
-                else: # 顶
-                    if after["typing_value"] >= pre["typing_value"]:
-                        self.standardized_top_bottom_list_temp.append(i-1)
-                    else:
-                        self.standardized_top_bottom_list_temp.append(i+1)
 
-        # 写两个 for 循环搞一下得了
-        for item in self.standardized_top_bottom_list_temp:
-            self.standardized_top_bottom_list.pop(item)
+        # for i in range(0, s_length, 3):
+        #     if s_length - i > 1:
+        #         pre =  self.top_bottom_list[i]
+        #         curr = self.top_bottom_list[i+1]
+        #         after = self.top_bottom_list[i+2]
+        #
+        #         if curr["int_index"] - pre["int_index"] < 4:
+        #             if pre["typing"] == -1: # 底
+        #                 if after["typing_value"] >= pre["typing_value"]:
+        #                     self.standardized_top_bottom_list_temp.append(after)
+        #                 else:
+        #                     self.standardized_top_bottom_list_temp.append(pre)
+        #                     i += 1
+        #             else: # 顶
+        #                 if after["typing_value"] >= pre["typing_value"]:
+        #                     self.standardized_top_bottom_list_temp.append(pre)
+        #                     i += 1
+        #                 else:
+        #                     self.standardized_top_bottom_list_temp.append(after)
+        #         else:
+        #             self.standardized_top_bottom_list_temp.append(curr)
 
+        # 多余的顶底剔除
+        s_length = len(self.standardized_top_bottom_list)
+        i = s_length - 1
+        while i >= 0:
+            item = self.standardized_top_bottom_list[i]
+            for item_temp in self.standardized_top_bottom_list_temp:
+                v = item_temp["index"]
+                if str(item["index"]) == str(item_temp["index"]):
+                    self.standardized_top_bottom_list.pop(i)
+            i -= 1
+
+        # 二次剔除多余的顶底（连续的顶底只保留第一个）
+        # s_length = len(self.standardized_top_bottom_list)
+        # i = s_length - 1
+        # while i > 0:
+        #     pre = self.standardized_top_bottom_list[i]
+        #     after = self.standardized_top_bottom_list[i-1]
+        #
+        #     if  pre["typing"] == after["typing"]:
+        #         self.standardized_top_bottom_list.pop(i)
+        #     i -= 1
+        # to simple series
         for item in self.standardized_top_bottom_list :
             self.standardized_top_bottom_list_ex.append([item["int_index"], item["typing_value"]])
             print(item["int_index"], item["typing_value"], item["typing"])
-
 
