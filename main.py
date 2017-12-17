@@ -17,9 +17,9 @@ sta = standard.StandardHandle(original.data_original)
 sta.deal_candle()
 sta.get_top_bottom()
 
-# date_tickers = original.date_tickers
-# my_plot = show.PlotShow(date_tickers, '000001上海')
-# my_plot.candle_show(original.data_original_ex, [])
+date_tickers = original.date_tickers
+my_plot = show.PlotShow(date_tickers, '000001上海')
+my_plot.candle_show(original.data_original_ex, [])
 
 date_tickers = sta.date_tickers
 my_plot = show.PlotShow(date_tickers, '000001')
