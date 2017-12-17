@@ -198,6 +198,9 @@ class StandardHandle(object):
         # 连续顶顶或底底的情况要考虑极值的相比
         s_length = len(self.top_bottom_list)
 
+        # 不成笔的区间 flag表示当前区间用作确认顶还是底
+        # 顶=1 底=-1
+        temp_rang = {"_top": None, "_bottom": None, "_flag":0}
         # 不足5k的顶底去除
         for i in range(0, s_length, 1):
             if s_length - i > 1:
