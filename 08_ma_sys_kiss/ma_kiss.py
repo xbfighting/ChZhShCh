@@ -16,7 +16,7 @@ code = "002500"
 original = th.TushareHelper(code, datetime.date.today()+ datetime.timedelta(days=-30),datetime.date.today(),'30min')
 original.data_transfer_ma()
 
-
+x_date = original.data_frame_ma_mini['index_date']
 x = original.data_frame_ma_mini['index']
 y1 = original.data_frame_ma_mini['short']
 y2 = original.data_frame_ma_mini['long']
