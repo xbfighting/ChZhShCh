@@ -35,7 +35,7 @@ class TushareHelper(object):
         # MA 接口数据
         self.data_frame_ma = {}
         # 简版数据
-        self.data_frame_ma_mini = {"index":[], "short":[], "long":[]}
+        self.data_frame_ma_mini = {"index":[], "index_date":[], "short":[], "long":[]}
     def __bar(self):
         self.data_frame = ts.bar(code=self.code, conn=TushareConn.conn, start_date=self.start, end_date=self.end,
                                  freq=self.freq, asset=self.asset)
@@ -61,10 +61,13 @@ class TushareHelper(object):
         self.__ma()
         ma_short = "ma" + str(self.ma[0])
         ma_long = "ma" + str(self.ma[1])
+        list_index = 0
 
         # data_frame 按照 index 倒叙排序
         for index, row in self.data_frame_ma.sort_index().iterrows():
             date_time = datetime.strptime(str(index), '%Y-%m-%d %H:%M:%S')
-            self.data_frame_ma_mini["index"].append((str(date_time)))
+            self.data_frame_ma_mini["index"].append(list_index)
+            self.data_frame_ma_mini["index_date"].append((str(date_time)))
             self.data_frame_ma_mini["short"].append(row[ma_short])
             self.data_frame_ma_mini["long"].append(row[ma_long])
+            list_index += 1
