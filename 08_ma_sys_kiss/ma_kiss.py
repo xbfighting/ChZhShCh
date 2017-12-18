@@ -56,5 +56,9 @@ plt.legend()  # 展示图例
 plt.show()
 
 
+# 画焦点 http://www.voidcn.com/article/p-gbgftgpm-bnu.html
+
+
+
 
 
