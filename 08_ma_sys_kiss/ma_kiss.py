@@ -21,8 +21,6 @@ x = original.data_frame_ma_mini['index']
 y1 = original.data_frame_ma_mini['short']
 y2 = original.data_frame_ma_mini['long']
 
-plt.rcParams['font.sans-serif'] = ['SimHei']
-plt.rcParams['axes.unicode_minus'] = False
 
 # x 轴转换
 # xtickers 表示
@@ -44,8 +42,10 @@ xtickers = np.linspace(0, len(x), 5)
 date_tickers = date_tickers_transfer(original.data_frame_ma_mini, xtickers)
 
 plt.figure()
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
 
-plt.title("ma")
+plt.title(code)
 plt.xlabel("date")
 plt.ylabel("price")
 
@@ -54,4 +54,7 @@ plt.plot(x, y2, color='black', linewidth=1.0, label="long")
 plt.xticks(xtickers, date_tickers)
 plt.legend()  # 展示图例
 plt.show()
+
+
+
 
