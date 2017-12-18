@@ -51,6 +51,7 @@ plt.ylabel("price")
 
 plt.plot(x, y1, color='red', linewidth=1.0, label="short")
 plt.plot(x, y2, color='black', linewidth=1.0, label="long")
+plt.xticks(xtickers, date_tickers)
 plt.legend()  # 展示图例
 plt.show()
 
