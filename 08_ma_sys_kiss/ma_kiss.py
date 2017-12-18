@@ -24,6 +24,25 @@ y2 = original.data_frame_ma_mini['long']
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 
+# x 轴转换
+# xtickers 表示
+def date_tickers_transfer(data, xtickers):
+    x_date = data['index_date']
+    x = data['index']
+    date_tickers = []
+    # 时间轴转换
+    for i in xtickers:
+        index = int(i)
+        if index == 0:
+            date_tickers.append(x_date[int(i)])
+        else:
+            date_tickers.append(x_date[int(i) - 1])
+    return date_tickers
+
+
+xtickers = np.linspace(0, len(x), 5)
+date_tickers = date_tickers_transfer(original.data_frame_ma_mini, xtickers)
+
 plt.figure()
 
 plt.title("ma")
