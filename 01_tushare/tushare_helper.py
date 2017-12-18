@@ -35,7 +35,7 @@ class TushareHelper(object):
         # MA 接口数据
         self.data_frame_ma = {}
         # 简版数据
-        self.data_frame_ma_mini = {"index":None, "short":None, "long":None}
+        self.data_frame_ma_mini = {"index":[], "short":[], "long":[]}
     def __bar(self):
         self.data_frame = ts.bar(code=self.code, conn=TushareConn.conn, start_date=self.start, end_date=self.end,
                                  freq=self.freq, asset=self.asset)
