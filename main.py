@@ -1,7 +1,5 @@
 import sys
-
 import datetime
-
 sys.path.append(r"00_common")
 sys.path.append(r"01_tushare")
 import tushare_helper as th
