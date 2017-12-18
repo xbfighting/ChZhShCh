@@ -48,7 +48,7 @@ class PlotShow(object):
             for i in top_bottom_data:
                 x.append(i[0])
                 y.append(i[1])
-            plt.plot(x, y, '--y*', label='bi')
+            plt.plot(x, y, '--y*', label='分笔')
             plt.legend()  # 展示图例
 
         ax.grid(True)
