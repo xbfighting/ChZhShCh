@@ -21,7 +21,7 @@ class TushareHelper(object):
         self.start = start
         self.end = end
         self.freq = freq
-        self.ma = []
+        self.ma = ma
         if asset is None or asset == '':
             self.asset = 'INDEX'
         else:
