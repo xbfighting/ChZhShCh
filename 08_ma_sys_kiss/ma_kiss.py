@@ -2,6 +2,7 @@ import sys
 import datetime
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 
 sys.path.append(r"../01_tushare")
 import tushare_helper as th
@@ -10,9 +11,9 @@ import standardized as standard
 sys.path.append(r"../09_show")
 import show
 
+code = "002500"
 
-
-original = th.TushareHelper('002500', datetime.date.today()+ datetime.timedelta(days=-30),datetime.date.today(),'60min')
+original = th.TushareHelper(code, datetime.date.today()+ datetime.timedelta(days=-30),datetime.date.today(),'30min')
 original.data_transfer_ma()
 
 
