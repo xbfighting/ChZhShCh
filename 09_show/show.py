@@ -26,21 +26,22 @@ class PlotShow(object):
 
     # 画图
     def candle_show(self, stock_data, top_bottom_data):
-        # TODO title 各种设置
-        plt.rcParams['font.sans-serif'] = ['SimHei']
-        plt.rcParams['axes.unicode_minus'] = False
-
-        # plt.title(self.title)
-        # plt.xlabel(self.xlabel)
-        # plt.ylabel(self.ylabel)
 
         # 创建子图
-        fig, ax = plt.subplots(figsize=(1920 / 72, 1080 / 72))
+        fig, ax = plt.subplots(figsize=(192.0 / 72, 108.0 / 72))
         ax.xaxis.set_major_locator(ticker.MultipleLocator(self.xaxis_cycle))
         ax.xaxis.set_major_formatter(ticker.FuncFormatter(self.__format_date))
         mpf.candlestick_ohlc(ax, stock_data, width=self.width, colordown=self.colordown, colorup=self.colorup, alpha=1)
 
-        # TODO 顶底、图例等
+        # title 各种设置
+        plt.rcParams['font.sans-serif'] = ['SimHei']
+        plt.rcParams['axes.unicode_minus'] = False
+
+        plt.title(self.title)
+        plt.xlabel(self.xlabel)
+        plt.ylabel(self.ylabel)
+
+        # 顶底、图例等
         if len(top_bottom_data) > 0:
             x = []
             y = []
