@@ -102,3 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.idea/ChZhShCh_Python.iml
+.idea/workspace.xml
+.idea/misc.xml
