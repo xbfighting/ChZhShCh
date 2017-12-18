@@ -59,9 +59,9 @@ class TushareHelper(object):
     # ma transfer
     def data_transfer_ma(self):
         self.__ma()
-        ma_short = 'ma' + self.ma[0]
-        ma_long = 'ma' + self.ma[1]
-        
+        ma_short = "ma" + str(self.ma[0])
+        ma_long = "ma" + str(self.ma[1])
+
         # data_frame 按照 index 倒叙排序
         for index, row in self.data_frame_ma.sort_index().iterrows():
             date_time = datetime.strptime(str(index), '%Y-%m-%d %H:%M:%S')
