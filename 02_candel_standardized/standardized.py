@@ -13,7 +13,6 @@ class StandardHandle(object):
         self.standardized_list_ex = []
         self.top_bottom_list = [] #普通顶底
         self.top_bottom_list_ex = [] #普通顶底ex
-        self.standardized_top_bottom_list_temp = []  # 标准顶底 temp
         self.standardized_top_bottom_list = [] #标准顶底
         self.standardized_top_bottom_list_ex = [] #标准顶底ex
         self.date_tickers = []
@@ -184,7 +183,6 @@ class StandardHandle(object):
                     else:
                         curr["typing_value"] = curr["low"]
                     self.top_bottom_list.append(curr)
-                    self.standardized_top_bottom_list.append(curr)
             i += 1
 
         print("top_bottom_list")
@@ -194,7 +192,7 @@ class StandardHandle(object):
             self.top_bottom_list_ex.append([item["int_index"], item["typing_value"]])
             print(item["int_index"], item["typing_value"], item["typing"])
 
-        # 顶底不仅要考虑是否有3k，还需考虑分型区间是否包含 ！~！！！！！！
+        # TODO:分型区间不能出现重合 处理
         # 连续顶顶或底底的情况要考虑极值的相比
         s_length = len(self.top_bottom_list)
 
@@ -211,7 +209,7 @@ class StandardHandle(object):
                 # 若不成笔区间不存在，则表示当前点和前面的点满足一笔且前点不存在争议
                 if temp_rang["_top"] is None and temp_rang["_bottom"] is None:
                     if after["int_index"] - curr["int_index"] >= 4:
-                        self.standardized_top_bottom_list_temp.append(curr)
+                        self.standardized_top_bottom_list.append(curr)
                     else:
                         # 如果不成笔区间未初始化 则需要重新确认不成笔区间
                         if curr["typing"] == -1:
@@ -231,17 +229,17 @@ class StandardHandle(object):
                         if curr["typing"] == 1:
                             # 当前和区间底构成一笔 则区间底确认，不够成一笔 不处理
                             if curr["int_index"] - temp_rang["_bottom"]["int_index"] >= 4:
-                                self.standardized_top_bottom_list_temp.append(temp_rang["_bottom"])
+                                self.standardized_top_bottom_list.append(temp_rang["_bottom"])
 
                                 if after["int_index"] - curr["int_index"] >= 4:
-                                    self.standardized_top_bottom_list_temp.append(curr)
+                                    self.standardized_top_bottom_list.append(curr)
                                     # reset range
                                     temp_rang = {"_top": None, "_bottom": None, "_flag": 0}
                                 else:
                                     # 判断笔破坏
                                     if after["typing_value"] < temp_rang["_bottom"]["typing_value"]:
-                                        self.standardized_top_bottom_list_temp.pop(len(self.standardized_top_bottom_list_temp) - 1)
-                                        self.standardized_top_bottom_list_temp.append(after)
+                                        self.standardized_top_bottom_list.pop(len(self.standardized_top_bottom_list) - 1)
+                                        self.standardized_top_bottom_list.append(after)
                                         temp_rang = {"_top": None, "_bottom": None, "_flag": 0}
                                     else:
                                         # 新区间 确认顶
@@ -266,17 +264,17 @@ class StandardHandle(object):
                         else:
                             # 当前和区间顶构成一笔 则区间顶确认，不够成一笔 不处理
                             if curr["int_index"] - temp_rang["_top"]["int_index"] >= 4:
-                                self.standardized_top_bottom_list_temp.append(temp_rang["_top"])
+                                self.standardized_top_bottom_list.append(temp_rang["_top"])
 
                                 if after["int_index"] - curr["int_index"] >= 4:
-                                    self.standardized_top_bottom_list_temp.append(curr)
+                                    self.standardized_top_bottom_list.append(curr)
                                     # reset range
                                     temp_rang = {"_top": None, "_bottom": None, "_flag": 0}
                                 else:
                                     # 判断笔破坏
                                     if after["typing_value"] > temp_rang["_top"]["typing_value"]:
-                                        self.standardized_top_bottom_list_temp.pop(len(self.standardized_top_bottom_list_temp) - 1)
-                                        self.standardized_top_bottom_list_temp.append(after)
+                                        self.standardized_top_bottom_list.pop(len(self.standardized_top_bottom_list) - 1)
+                                        self.standardized_top_bottom_list.append(after)
 
                                         # reset range
                                         temp_rang = {"_top": None, "_bottom": None, "_flag": 0}
@@ -286,10 +284,10 @@ class StandardHandle(object):
                                         temp_rang["_bottom"] = curr
                                         temp_rang["_flag"] = -1
 
-        print("standardized_top_bottom_list_temp")
-        print(len(self.standardized_top_bottom_list_temp))
+        print("standardized_top_bottom_list")
+        print(len(self.standardized_top_bottom_list))
         # to simple series
-        for item in self.standardized_top_bottom_list_temp :
+        for item in self.standardized_top_bottom_list :
             self.standardized_top_bottom_list_ex.append([item["int_index"], item["typing_value"]])
             print(item["int_index"], item["typing_value"], item["typing"])
 
