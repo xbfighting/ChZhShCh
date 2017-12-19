@@ -13,14 +13,13 @@ import show
 
 code = "002500"
 
-original = th.TushareHelper(code, datetime.date.today()+ datetime.timedelta(days=-30),datetime.date.today(),'30min')
+original = th.TushareHelper(code, datetime.date.today()+ datetime.timedelta(days=-30),datetime.date.today(),'60min')
 original.data_transfer_ma()
 
 x_date = original.data_frame_ma_mini['index_date']
 x = original.data_frame_ma_mini['index']
 y1 = original.data_frame_ma_mini['short']
 y2 = original.data_frame_ma_mini['long']
-
 
 # x 轴转换
 # xtickers 表示
@@ -37,22 +36,27 @@ def date_tickers_transfer(data, xtickers):
             date_tickers.append(x_date[int(i) - 1])
     return date_tickers
 
-
 xtickers = np.linspace(0, len(x), 5)
 date_tickers = date_tickers_transfer(original.data_frame_ma_mini, xtickers)
 
-plt.figure()
+fig, ax = plt.subplots(1, 1, sharex=True)
+
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 
-plt.title(code)
-plt.xlabel("date")
-plt.ylabel("price")
+ax.plot(x, y1, color='red', linewidth=1.0, label="short")
+ax.plot(x, y2, color='black', linewidth=1.0, label="long")
+ax.fill_between(x, y1, y2, color='gray', alpha=0.2)
+# ax.fill_between(x, y1, y2, where=y2 < 10, color='yellow', alpha=0.2)
+# ax.fill_between(x, y1, y2, where=y2 < y1, facecolor='red', interpolate=True)
 
-plt.plot(x, y1, color='red', linewidth=1.0, label="short")
-plt.plot(x, y2, color='black', linewidth=1.0, label="long")
+ax.set_title(code)
+ax.set_xlabel("date-日期")
+ax.set_ylabel("price")
+
+plt.xticks(xtickers)
 plt.xticks(xtickers, date_tickers)
-plt.legend()  # 展示图例
+ax.legend()  # 展示图例
 plt.show()
 
 
