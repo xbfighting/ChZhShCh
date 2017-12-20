@@ -14,7 +14,7 @@ sys.path.append(r"../09_show")
 import show
 
 class MAKiss(object):
-    # x 轴转换 xtickers 表示
+    # x 轴转换 date_tickers 表示
     def __date_tickers_transfer(self):
         self.date_tickers = []
         # 时间轴转换
@@ -28,29 +28,31 @@ class MAKiss(object):
 
     def __init__(self, code, data_frame_ma_mini):
         self.code = code
-        self.data_frame_ma_mini = data_frame_ma_mini
-        self.x_date = self.data_frame_ma_mini['index_date']
-        self.x_index = self.data_frame_ma_mini['index']
-        self.long = self.data_frame_ma_mini['long']
-        self.short = self.data_frame_ma_mini['short']
-        self.long_interp1d = interpolate.interp1d(self.x_index, self.long)
-        self.short_interp1d = interpolate.interp1d(self.x_index, self.short)
-        self.intersection = {'Postural': '', 'X': 0, 'Y': 0}
-        self.intersections = []
-        self.intersections_ex = []
-        self.int_tickers =  np.linspace(0, len(self.x_index), 5)
-        self.date_tickers = self.__date_tickers_transfer()
-        self.postural_long_to_short = "1"
-        self.postural_short_to_long = "0"
+        self.data_frame_ma_mini = data_frame_ma_mini #ma 数据
+        self.x_date = self.data_frame_ma_mini['index_date'] # x轴用日期
+        self.x_index = self.data_frame_ma_mini['index'] # x轴用数字索引
+        self.long = self.data_frame_ma_mini['long'] # 长期均线
+        self.short = self.data_frame_ma_mini['short'] # 短期均线
+        self.long_interp1d = interpolate.interp1d(self.x_index, self.long) # 长期均线差值函数
+        self.short_interp1d = interpolate.interp1d(self.x_index, self.short) # 短期均线差值函数
+        self.intersection = {"Postural": None, "X": 0, "Y": 0} # 交点定义
+        self.intersections = [] # 交点集合
+        self.intersections_ex = [] # 交点集合 ex 备用计算吻之用
+        self.int_tickers =  np.linspace(0, len(self.x_index), 5) # plot int tickers
+        self.date_tickers = self.__date_tickers_transfer() # plot date tickers
+        self.postural_long_to_short = "1" # 男上位
+        self.postural_short_to_long = "0" # 女上位
 
-
+    # 单个交点计算和获取
     def __get_intersection(self, pre_data, curr_data):
         pre_short = pre_data["short"]
         pre_long = pre_data["long"]
         curr_short = curr_data["short"]
         curr_long = curr_data["long"]
 
+        # 空缺值不处理
         if np.isnan(pre_short) != True and np.isnan(pre_long) != True and np.isnan(curr_short) != True and np.isnan(curr_long) != True:
+            # 交点前是男上位
             if pre_long - pre_short > 0 and curr_short - curr_long >= 0:
                 intersection_index = (curr_data["index"] + pre_data["index"]) / 2
                 y = self.long_interp1d(intersection_index)
