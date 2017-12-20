@@ -58,18 +58,21 @@ class MAKiss(object):
                 y = self.long_interp1d(intersection_index)
                 if np.isnan(y):
                     y = self.short_interp1d(intersection_index)
-                self.intersection = {'Postural': self.postural_long_to_short, 'X': intersection_index, 'Y': y}
-                self.intersections.append(self.intersection)
-
+                self.intersection = {"Postural": self.postural_long_to_short, "X": intersection_index, "Y": y}
+                return
+            # 交点前是女上位
             if pre_long - pre_short < 0 and curr_short - curr_long <= 0:
                 intersection_index = (curr_data["index"] + pre_data["index"]) / 2
                 y = self.long_interp1d(intersection_index)
                 if np.isnan(y):
                     y = self.short_interp1d(intersection_index)
-                self.intersection = {'Postural': self.postural_short_to_long, 'X': intersection_index, 'Y': y}
-                self.intersections.append(self.intersection)
-        pass
+                self.intersection = {"Postural": self.postural_short_to_long, "X": intersection_index, "Y": y}
+                return
 
+        self.intersection = {"Postural": None, "X": 0, "Y": 0}
+        return
+
+    # 交点集合获取
     def get_intersections(self):
         i = 1
         while i < len(self.data_frame_ma_mini["index"]):
@@ -84,8 +87,7 @@ class MAKiss(object):
             ma_item_curr["short"] = self.data_frame_ma_mini["short"][i]
 
             self.__get_intersection(ma_item_pre, ma_item_curr)
+
+            if self.intersection["Postural"] is not None:
+                self.intersections.append(self.intersection)
             i += 1
-
-# f1 = interpolate.interp1d(x, y1)
-# f2 = interpolate.interp1d(x, y2)
-
