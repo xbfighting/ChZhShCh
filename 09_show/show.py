@@ -57,7 +57,7 @@ class PlotShow(object):
 
     # MA 画图
     def ma_kiss_show(self, ma):
-        fig, ax = plt.subplots(1, 1, sharex=True)
+        fig, ax = plt.subplots(1, 1, figsize=(1920 / 72, 1080 / 72), sharex=True)
 
         plt.rcParams['font.sans-serif'] = ['SimHei']
         plt.rcParams['axes.unicode_minus'] = False
