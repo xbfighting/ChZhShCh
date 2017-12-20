@@ -40,6 +40,8 @@ class MAKiss(object):
         self.intersections_ex = []
         self.int_tickers =  np.linspace(0, len(self.x_index), 5)
         self.date_tickers = self.__date_tickers_transfer()
+        self.postural_long_to_short = "1"
+        self.postural_short_to_long = "0"
 
 
     def __get_intersection(pre_short, pre_long, curr_short, curr_long):
