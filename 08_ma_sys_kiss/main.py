@@ -16,3 +16,10 @@ original.data_transfer_ma()
 makiss = mk.MAKiss(code, original.data_frame_ma_mini)
 my_plot = show.PlotShow([], code)
 my_plot.ma_kiss_show(makiss)
+
+makiss.get_intersections()
+
+print(len(makiss.intersections))
+print(len(makiss.data_frame_ma_mini["index"]))
+
+print(makiss.intersections)
