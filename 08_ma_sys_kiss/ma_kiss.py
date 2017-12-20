@@ -73,6 +73,8 @@ class MAKiss(object):
         return
 
     # 交点集合获取
+    # TODO: 交点打印到图上
+    # TODO: 交点的获取如有需要则要更改的更精准一些
     def get_intersections(self):
         i = 1
         while i < len(self.data_frame_ma_mini["index"]):
