@@ -67,8 +67,22 @@ class MAKiss(object):
                 self.intersection = {'Postural': self.postural_short_to_long, 'X': intersection_index, 'Y': y}
                 self.intersections.append(self.intersection)
         pass
+
     def get_intersections(self):
-        pass
+        i = 1
+        while i < len(self.data_frame_ma_mini["index"]):
+            ma_item_pre = {'index': 0, 'long': 0, 'short': 0}
+            ma_item_pre["index"] = self.data_frame_ma_mini["index"][i - 1]
+            ma_item_pre["long"] = self.data_frame_ma_mini["long"][i - 1]
+            ma_item_pre["short"] = self.data_frame_ma_mini["short"][i - 1]
+
+            ma_item_curr = {'index': 0, 'long': 0, 'short': 0}
+            ma_item_curr["index"] = self.data_frame_ma_mini["index"][i]
+            ma_item_curr["long"] = self.data_frame_ma_mini["long"][i]
+            ma_item_curr["short"] = self.data_frame_ma_mini["short"][i]
+
+            self.__get_intersection(ma_item_pre, ma_item_curr)
+            i += 1
 
 # f1 = interpolate.interp1d(x, y1)
 # f2 = interpolate.interp1d(x, y2)
