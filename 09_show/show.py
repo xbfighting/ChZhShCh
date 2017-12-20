@@ -14,7 +14,7 @@ class PlotShow(object):
         self.colordown ='#53c156'
         self.colorup = '#ff1717'
         self.xlabel = 'datetime'
-        self.ylabel = 'index value'
+        self.ylabel = 'value'
         self.title = title
 
 
@@ -24,7 +24,7 @@ class PlotShow(object):
             return ''
         return self.date_tickers[int(x)]
 
-    # 画图
+    # K画图
     def candle_show(self, stock_data, top_bottom_data):
 
         # 创建子图
@@ -53,4 +53,26 @@ class PlotShow(object):
 
         ax.grid(True)
         # plt.savefig('E:\PythonChZhShCh\\' + code + k_type + start_date + end_date + '.png')
+        plt.show()
+
+    # MA 画图
+    def ma_kiss_show(self, ma):
+        fig, ax = plt.subplots(1, 1, sharex=True)
+
+        plt.rcParams['font.sans-serif'] = ['SimHei']
+        plt.rcParams['axes.unicode_minus'] = False
+
+        ax.plot(ma.x_index, ma.short, color='red', linewidth=1.0, label="short")
+        ax.plot(ma.x_index, ma.long, color='black', linewidth=1.0, label="long")
+        ax.fill_between(ma.x_index, ma.short, ma.long, color='gray', alpha=0.2)
+        # ax.fill_between(x, y1, y2, where=y2 < 10, color='yellow', alpha=0.2)
+        # ax.fill_between(x, y1, y2, where=y2 < y1, facecolor='red', interpolate=True)
+
+        ax.set_title(self.title)
+        ax.set_xlabel("日期")
+        ax.set_ylabel("price")
+
+        plt.xticks(ma.int_tickers)
+        plt.xticks(ma.int_tickers, ma.date_tickers)
+        ax.legend()
         plt.show()
