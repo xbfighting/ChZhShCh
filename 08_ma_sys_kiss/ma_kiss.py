@@ -44,10 +44,28 @@ class MAKiss(object):
         self.postural_short_to_long = "0"
 
 
-    def __get_intersection(pre_short, pre_long, curr_short, curr_long):
+    def __get_intersection(self, pre_data, curr_data):
+        pre_short = pre_data["short"]
+        pre_long = pre_data["long"]
+        curr_short = curr_data["short"]
+        curr_long = curr_data["long"]
+
         if np.isnan(pre_short) != True and np.isnan(pre_long) != True and np.isnan(curr_short) != True and np.isnan(curr_long) != True:
-            # if pre_long - pre_short >= 0
-            pass
+            if pre_long - pre_short > 0 and curr_short - curr_long >= 0:
+                intersection_index = (curr_data["index"] + pre_data["index"]) / 2
+                y = self.long_interp1d(intersection_index)
+                if np.isnan(y):
+                    y = self.short_interp1d(intersection_index)
+                self.intersection = {'Postural': self.postural_long_to_short, 'X': intersection_index, 'Y': y}
+                self.intersections.append(self.intersection)
+
+            if pre_long - pre_short < 0 and curr_short - curr_long <= 0:
+                intersection_index = (curr_data["index"] + pre_data["index"]) / 2
+                y = self.long_interp1d(intersection_index)
+                if np.isnan(y):
+                    y = self.short_interp1d(intersection_index)
+                self.intersection = {'Postural': self.postural_short_to_long, 'X': intersection_index, 'Y': y}
+                self.intersections.append(self.intersection)
         pass
     def get_intersections(self):
         pass
