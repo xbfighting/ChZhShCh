@@ -57,16 +57,17 @@ class PlotShow(object):
 
     # MA 画图
     def ma_kiss_show(self, ma):
-        fig, ax = plt.subplots(1, 1, figsize=(1920 / 72, 1080 / 72), sharex=True)
+        fig, ax = plt.subplots(1, 1, figsize=(192.0 / 72, 108.0 / 72), sharex=True)
 
         plt.rcParams['font.sans-serif'] = ['SimHei']
         plt.rcParams['axes.unicode_minus'] = False
 
         ax.plot(ma.x_index, ma.short, color='red', linewidth=1.0, label="short")
         ax.plot(ma.x_index, ma.long, color='black', linewidth=1.0, label="long")
-        ax.fill_between(ma.x_index, ma.short, ma.long, color='gray', alpha=0.2)
+        # ax.fill_between(ma.x_index, ma.short, ma.long, color='gray', alpha=0.2)
         # ax.fill_between(x, y1, y2, where=y2 < 10, color='yellow', alpha=0.2)
         # ax.fill_between(x, y1, y2, where=y2 < y1, facecolor='red', interpolate=True)
+        ax.plot(ma.intersection_x, ma.intersection_y, 'o')
 
         ax.set_title(self.title)
         ax.set_xlabel("日期")
