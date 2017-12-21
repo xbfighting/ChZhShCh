@@ -41,8 +41,12 @@ class MAKiss(object):
         self.intersection = {"Postural": None, "X": 0, "Y": 0}  # 交点定义
         self.intersections = []  # 交点集合
         self.intersections_ex = []  # 交点集合 ex 备用计算吻之用
+        self.intersection_x = []  # 交点x点集
+        self.intersection_y = []    # 交点y点集
+
         self.int_tickers = np.linspace(0, len(self.x_index), 5)  # plot int tickers
         self.date_tickers = self.__date_tickers_transfer()  # plot date tickers
+
         self.postural_long_to_short = "1"  # 男上位
         self.postural_short_to_long = "0"  # 女上位
 
@@ -77,7 +81,6 @@ class MAKiss(object):
         return
 
     # 交点集合获取
-    # TODO: 交点打印到图上
     # TODO: 交点的获取如有需要则要更改的更精准一些
     def get_intersections(self):
         i = 1
@@ -96,4 +99,11 @@ class MAKiss(object):
 
             if self.intersection["Postural"] is not None:
                 self.intersections.append(self.intersection)
+                self.intersection_x.append(self.intersection["X"])
+                self.intersection_y.append(self.intersection["Y"])
             i += 1
+
+    def get_intersections_ex(self):
+        # TODO: 获取精确的交点
+        my_index_x = np.linspace(0, len(self.x_index), 72)
+        self.intersections_ex = self.long_interp1d(my_index_x) - self.short_interp1d(my_index_x) == 0
