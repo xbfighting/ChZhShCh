@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from scipy import interpolate
 
+sys.path.append(r"../00_common")
+import line_helper as lh
+
 sys.path.append(r"../01_tushare")
 import tushare_helper as th
 
@@ -50,7 +53,7 @@ class MAKiss(object):
         self.postural_long_to_short = "1"  # 男上位
         self.postural_short_to_long = "0"  # 女上位
 
-    # 单个交点计算和获取
+    # 单个交点计算和获取 粗略版 已经弃用
     def __get_intersection(self, pre_data, curr_data):
         pre_short = pre_data["short"]
         pre_long = pre_data["long"]
@@ -80,8 +83,52 @@ class MAKiss(object):
         self.intersection = {"Postural": None, "X": 0, "Y": 0}
         return
 
+    # 单个交点计算和获取 ex
+    def __get_intersection_ex(self, pre_data, curr_data):
+        pre_short = pre_data["short"]
+        pre_long = pre_data["long"]
+        pre_index = pre_data["index"]
+        curr_short = curr_data["short"]
+        curr_long = curr_data["long"]
+        curr_index = curr_data["index"]
+
+        # 空缺值不处理
+        if np.isnan(pre_short) != True and np.isnan(pre_long) != True and np.isnan(curr_short) != True and np.isnan(
+                curr_long) != True:
+            # 交点前是男上位
+            if pre_long - pre_short > 0 and curr_short - curr_long >= 0:
+                point_long1 = lh.Point(pre_index, pre_long)
+                point_long2 = lh.Point(curr_index, curr_long)
+                line1_long = lh.Line(point_long1, point_long2)
+
+                point_short1 = lh.Point(pre_index, pre_short)
+                point_short2 = lh.Point(curr_index, curr_short)
+                line1_short = lh.Line(point_short1, point_short2)
+
+                intersection_point = lh.GetCrossPoint(line1_long, line1_short)
+                self.intersection = {"Postural": self.postural_long_to_short, "X": intersection_point.x,
+                                     "Y": intersection_point.y}
+                return
+            # 交点前是女上位
+            if pre_long - pre_short < 0 and curr_short - curr_long <= 0:
+                point_long1 = lh.Point(pre_index, pre_long)
+                point_long2 = lh.Point(curr_index, curr_long)
+                line1_long = lh.Line(point_long1, point_long2)
+
+                point_short1 = lh.Point(pre_index, pre_short)
+                point_short2 = lh.Point(curr_index, curr_short)
+                line1_short = lh.Line(point_short1, point_short2)
+
+                intersection_point = lh.GetCrossPoint(line1_long, line1_short)
+                self.intersection = {"Postural": self.postural_short_to_long, "X": intersection_point.x,
+                                     "Y": intersection_point.y}
+                return
+
+        self.intersection = {"Postural": None, "X": 0, "Y": 0}
+        return
+
+
     # 交点集合获取
-    # TODO: 交点的获取如有需要则要更改的更精准一些
     def get_intersections(self):
         i = 1
         while i < len(self.data_frame_ma_mini["index"]):
@@ -95,15 +142,10 @@ class MAKiss(object):
             ma_item_curr["long"] = self.data_frame_ma_mini["long"][i]
             ma_item_curr["short"] = self.data_frame_ma_mini["short"][i]
 
-            self.__get_intersection(ma_item_pre, ma_item_curr)
+            self.__get_intersection_ex(ma_item_pre, ma_item_curr)
 
             if self.intersection["Postural"] is not None:
                 self.intersections.append(self.intersection)
                 self.intersection_x.append(self.intersection["X"])
                 self.intersection_y.append(self.intersection["Y"])
             i += 1
-
-    def get_intersections_ex(self):
-        # TODO: 获取精确的交点
-        my_index_x = np.linspace(0, len(self.x_index), 72)
-        self.intersections_ex = self.long_interp1d(my_index_x) - self.short_interp1d(my_index_x) == 0
