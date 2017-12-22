@@ -15,15 +15,10 @@ original.data_transfer_ma()
 
 makiss = mk.MAKiss(code, original.data_frame_ma_mini)
 my_plot = show.PlotShow([], code)
+
+# 交点获取
 makiss.get_intersections()
 print(len(makiss.intersections))
 print(makiss.intersections)
-
+# 打印
 my_plot.ma_kiss_show(makiss)
-
-print("*" * 10)
-
-makiss.get_intersections_ex()
-print(len(makiss.data_frame_ma_mini))
-print(len(makiss.intersections_ex))
-print(makiss.intersections_ex)
