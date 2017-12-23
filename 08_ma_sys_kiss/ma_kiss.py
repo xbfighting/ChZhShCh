@@ -156,6 +156,9 @@ class MAKiss(object):
             i += 1
 
     # 获取唇吻
+    # TODO: 排除交点附近的点
+    # TODO: 想办法获取两个交点中断的“吻”
+
     def get_lip_kiss(self):
         long_short_diff = []
         long_short_diff_value = []
