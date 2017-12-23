@@ -9,7 +9,7 @@ import show
 sys.path.append(r"../08_ma_sys_kiss")
 import ma_kiss as mk
 
-code = "601933"
+code = "002500"
 original = th.TushareHelper(code, datetime.date.today() + datetime.timedelta(days=-30), datetime.date.today() + datetime.timedelta(days=1),'60min')
 original.data_transfer_ma()
 
@@ -20,5 +20,12 @@ my_plot = show.PlotShow([], code)
 makiss.get_intersections()
 print(len(makiss.intersections))
 print(makiss.intersections)
+
+# 吻获取
+makiss.get_lip_kiss()
+print(makiss.lip_kiss)
+
 # 打印
 my_plot.ma_kiss_show(makiss)
+
+
