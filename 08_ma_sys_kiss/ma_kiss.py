@@ -154,3 +154,30 @@ class MAKiss(object):
                 self.intersection_x.append(self.intersection["X"])
                 self.intersection_y.append(self.intersection["Y"])
             i += 1
+
+    # 获取唇吻
+    def get_lip_kiss(self):
+        long_short_diff = []
+        long_short_diff_value = []
+
+        for i in range(len(self.x_index)):
+            if np.isnan(self.long[i]) != True and np.isnan(self.short[i]) != True:
+                diff = self.long[i] - self.short[i]
+                if diff > 0:
+                    long_short_diff.append({"Postural": self.postural_long_to_short, "X": self.x_index[i], "Y":self.long[i], "Diff": round(diff, 5)})
+                    long_short_diff_value.append(round(diff, 5))
+
+        for passnum in range(len(long_short_diff_value) - 1, 0, -1):
+            for i in range(passnum):
+                if long_short_diff[i]["Diff"] > long_short_diff[i + 1]["Diff"]:
+                    temp = long_short_diff[i]
+                    long_short_diff[i] = long_short_diff[i + 1]
+                    long_short_diff[i + 1] = temp
+        print(long_short_diff)
+        for i in range(len(long_short_diff)):
+            if i < 8:
+                self.lip_kiss.append(long_short_diff[i])
+                self.lip_kiss_x.append(long_short_diff[i]["X"])
+                self.lip_kiss_y.append(long_short_diff[i]["Y"])
+        print(long_short_diff)
+
