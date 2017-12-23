@@ -47,6 +47,11 @@ class MAKiss(object):
         self.intersection_x = []  # 交点x点集
         self.intersection_y = []    # 交点y点集
 
+        self.lip_kiss = []  # 唇吻集合
+        self.lip_kiss_x = []    # 唇吻 x点集
+        self.lip_kiss_y = []    # 唇吻 y点集
+
+
         self.int_tickers = np.linspace(0, len(self.x_index), 5)  # plot int tickers
         self.date_tickers = self.__date_tickers_transfer()  # plot date tickers
 
