@@ -1,6 +1,8 @@
 # ChZhShCh
 部分缠论技术的程序化实践
 
+《缠中说禅博客》地址： http://blog.sina.com.cn/chzhshch
+
 ---
 ### 1、K包含处理
 
