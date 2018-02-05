@@ -1,8 +1,4 @@
 import sys
-sys.path.append(r"../00_common")
-import frequency_enum as fe
-sys.path.append(r"../01_tushare")
-import tushare_helper as th
 
 class StandardHandle(object):
     def __init__(self, original_list):
