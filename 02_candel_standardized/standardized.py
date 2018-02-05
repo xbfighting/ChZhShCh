@@ -160,6 +160,7 @@ class StandardHandle(object):
     # 3、输出
 
     # 获取顶和底
+    # UGLY!!! 需要拆分
     def get_top_bottom(self):
         s_length = len(self.standardized_list)
         typing = 0
