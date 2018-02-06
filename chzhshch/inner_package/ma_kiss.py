@@ -1,22 +1,19 @@
+import os
 import sys
 import datetime
 import math
-import numpy as np
+
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+import numpy as np
 from scipy import interpolate
 
-sys.path.append(r"../00_common")
-import line_helper as lh
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
 
-sys.path.append(r"../01_tushare")
-import tushare_helper as th
-
-sys.path.append(r"../02_candel_standardized")
-import standardized as standard
-
-sys.path.append(r"../09_show")
-import show
+from external_package import line_helper as lh
+from external_package import tushare_helper as th
+from inner_package import standardized as standard
+from inner_package import show
 
 
 class MAKiss(object):
@@ -183,4 +180,3 @@ class MAKiss(object):
                 self.lip_kiss_x.append(long_short_diff[i]["X"])
                 self.lip_kiss_y.append(long_short_diff[i]["Y"])
         print(long_short_diff)
-

@@ -1,11 +1,10 @@
+import os
 import sys
 import datetime
-sys.path.append(r"../00_common")
-import chzhshch_central as central
 
-sys.path.append(r"../01_tushare")
-import tushare_helper as th
-
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
+from inner_package import chzhshch_central as central
+from external_package import tushare_helper as th
 
 class DailyClassfication(object):
     def __init__(self, original_list):

@@ -1,12 +1,12 @@
+import os
 import sys
 import datetime
-sys.path.append(r"00_common")
-sys.path.append(r"01_tushare")
-import tushare_helper as th
-sys.path.append(r"02_candel_standardized")
-import standardized as standard
-sys.path.append(r"09_show")
-import show
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
+
+from external_package import tushare_helper as th
+from inner_package import standardized as standard
+from inner_package import show
 
 # original = th.TushareHelper('000001', datetime.date.today()+ datetime.timedelta(days=-1),datetime.date.today() + datetime.timedelta(days=+1),'1min')
 original = th.TushareHelper('000001', '2017-12-04', '2017-12-12', 'D')

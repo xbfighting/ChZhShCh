@@ -1,4 +1,3 @@
-import sys
 
 # 中枢类
 class Central:
