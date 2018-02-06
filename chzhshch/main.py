@@ -1,8 +1,5 @@
-import os
 import sys
 import datetime
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
 
 from external_package import tushare_helper as th
 from inner_package import standardized as standard
