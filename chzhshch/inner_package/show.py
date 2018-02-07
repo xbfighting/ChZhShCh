@@ -64,9 +64,7 @@ class PlotShow(object):
 
         ax.plot(ma.x_index, ma.short, color='red', linewidth=1.0, label="short")
         ax.plot(ma.x_index, ma.long, color='black', linewidth=1.0, label="long")
-        # ax.fill_between(ma.x_index, ma.short, ma.long, color='gray', alpha=0.2)
-        # ax.fill_between(x, y1, y2, where=y2 < 10, color='yellow', alpha=0.2)
-        # ax.fill_between(x, y1, y2, where=y2 < y1, facecolor='red', interpolate=True)
+        
         # 交点打印
         ax.plot(ma.intersection_x, ma.intersection_y, 'o')
 
