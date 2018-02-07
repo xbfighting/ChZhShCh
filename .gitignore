@@ -105,3 +105,4 @@ venv.bak/
 .idea/ChZhShCh_Python.iml
 .idea/workspace.xml
 .idea/misc.xml
+.vscode/settings.json
