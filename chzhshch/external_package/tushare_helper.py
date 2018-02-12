@@ -15,19 +15,21 @@ class TushareConn(Singleton):
     conn = ts.get_apis()
 
 class TushareHelper(object):
-    def __init__(self, code, start, end, freq, ma =[5, 10],asset=''):
+    def __init__(self, code, start, end, freq, ma = [5, 10], asset = ''):
         self.self = self
         self.code = code
         self.start = start
         self.end = end
         self.freq = freq
         self.ma = ma
+
         if asset is None or asset == '':
             self.asset = 'INDEX'
         else:
             self.asset = asset
-
+        # 原始api数据 pandas data_frame
         self.data_frame = {}
+        # 
         self.data_original = []
         self.data_original_ex = []
         self.date_tickers = []
