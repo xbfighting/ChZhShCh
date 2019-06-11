@@ -1,4 +1,4 @@
-
+# -*- coding: UTF-8 -*-
 # 中枢类
 class Central:
     def __init__(self, GG, DD, ZG, ZD, start, end):

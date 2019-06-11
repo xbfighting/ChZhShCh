@@ -1,4 +1,4 @@
-
+# -*- coding: UTF-8 -*-
 # 根据“放量上年线，缩量回调。” 选股
 import sys
 import datetime

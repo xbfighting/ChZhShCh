@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 # 均线系统+吻
 import os
 import sys

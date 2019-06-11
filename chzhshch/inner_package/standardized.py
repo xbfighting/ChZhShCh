@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 # K线数据标准化处理
 class StandardHandle(object):
     def __init__(self, original_list):
